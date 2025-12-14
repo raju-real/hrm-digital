@@ -50,6 +50,40 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Device IP Address {!! starSign() !!}</label>
+                                    <input type="text" name="ip_address" value="{{ old('ip_address') ?? $device->ip_address ?? '' }}"
+                                           class="form-control {{ hasError('ip_address') }}"
+                                           placeholder="Device IP Address">
+                                    @error('ip_address')
+                                    {!! displayError($message) !!}
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Device Port {!! starSign() !!}</label>
+                                    <input type="text" name="device_port" value="{{ old('device_port') ?? $device->device_port ?? '' }}"
+                                           class="form-control {{ hasError('device_port') }}"
+                                           placeholder="Device Port">
+                                    @error('device_port')
+                                    {!! displayError($message) !!}
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Communication Key(Comm Key) {!! starSign() !!}</label>
+                                    <input type="text" name="comm_key" value="{{ old('comm_key') ?? $device->comm_key ?? '' }}"
+                                           class="form-control {{ hasError('comm_key') }}"
+                                           placeholder="Communication Key(Comm Key)">
+                                    @error('comm_key')
+                                    {!! displayError($message) !!}
+                                    @enderror
+                                </div>
+                            </div>
 
                             <div class="col-md-4">
                                 <div class="mb-3">

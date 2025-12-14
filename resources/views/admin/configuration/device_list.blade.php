@@ -29,7 +29,7 @@
                                     <th>Name</th>
                                     <th>Branch</th>
                                     <th>Serial No</th>
-                                    <th>IP</th>
+                                    <th>IP Address</th>
                                     <th class="text-center">Enabled</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -41,7 +41,7 @@
                                         <td>{{ $device->name ?? '' }}</td>
                                         <td>{{ $device->branch->name ?? '' }}</td>
                                         <td>{{ $device->serial_no ?? '' }}</td>
-                                        <td>{{ $device->ip ?? '' }}</td>
+                                        <td>{{ $device->ip_address ?? '' }}</td>
                                         <td class="text-center">
                                             <input type="checkbox" id="device-{{ $loop->index + 1 }}" class="device-status"
                                                 data-id="{{ $device->id }}" switch="bool"

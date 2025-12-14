@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->enum('role', ['admin', 'employee'])->default('employee');
-            $table->string('employee_id')->nullable();
+            $table->string('employee_id')->unique()->nullable();
             $table->integer('department_id')->nullable();
             $table->integer('designation_id')->nullable();
             $table->foreignId('branch_id')->nullable();

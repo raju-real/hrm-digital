@@ -16,7 +16,7 @@ class IClockController extends Controller
     // /iclock/getrequest => handshake / device registration
     public function handshake(Request $request)
     {
-        $sn = $request->query('SN') ?? $request->input('SN');
+        $sn = $request->query('serial_no') ?? $request->input('serial_no');
         if ($sn) {
             Device::updateOrCreate(
                 ['serial_no' => $sn],
@@ -30,7 +30,7 @@ class IClockController extends Controller
     // /iclock/cdata => device pushes attendance lines (ATTLOG,...)
     public function capture(Request $request)
     {
-        $sn = $request->query('SN') ?? $request->input('SN');
+        $sn = $request->query('serial_no') ?? $request->input('serial_no');
         $device = Device::where('serial_no', $sn)->first();
         $raw = trim($request->getContent() ?? '');
         if ($raw === '') return response('OK:0', 200);
@@ -60,7 +60,7 @@ class IClockController extends Controller
     // /iclock/devicecmd => device polls to fetch pending commands
     public function commands(Request $request)
     {
-        $sn = $request->query('SN') ?? $request->input('SN');
+        $sn = $request->query('serial_no') ?? $request->input('serial_no');
         $device = Device::where('serial_no', $sn)->first();
         if (!$device) return response('', 200);
 

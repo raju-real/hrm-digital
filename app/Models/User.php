@@ -59,14 +59,17 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Branch::class);
     }
+
     public function fingerprints()
     {
         return $this->hasMany(Fingerprint::class);
     }
+
     public function devices()
     {
         return $this->belongsToMany(Device::class, 'device_employee')->withPivot('status', 'synced_at');
     }
+
     public function attendance()
     {
         return $this->hasMany(AttendanceLog::class);
@@ -75,19 +78,20 @@ class User extends Authenticatable
     public static function getEmployeeId(): string
     {
         $lastUserId = User::latest('id')->first();
-        $newEmployeeId = str_pad(1, 4, "0", STR_PAD_LEFT);
+        // Start from 1001
+        $newEmployeeId = '1001';
         if ($lastUserId) {
             $lastEmpId = $lastUserId->employee_id;
-            if ($lastEmpId != null) {
-                $newSerialNumber = $lastEmpId + 1;
-                $newEmployeeId = str_pad($newSerialNumber, 4, "0", STR_PAD_LEFT);;
-            } else {
-                $newEmployeeId = str_pad(1, 4, "0", STR_PAD_LEFT);
+
+            if ($lastEmpId !== null && is_numeric($lastEmpId)) {
+                $newSerialNumber = (int)$lastEmpId + 1;
+                $newEmployeeId = (string)$newSerialNumber;
             }
         }
         if (User::where('employee_id', $newEmployeeId)->exists()) {
-            User::getEmployeeId();
+            return self::getEmployeeId(); // IMPORTANT: return it
         }
         return $newEmployeeId;
     }
+
 }

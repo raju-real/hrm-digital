@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -19,7 +18,9 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
             $table->string('serial_no')->unique();
-            $table->string('ip')->nullable();
+            $table->string('ip_address')->nullable();
+            $table->string('device_port')->nullable();
+            $table->string('comm_key')->nullable()->comment("Communication Key| Menu → Comm / Network → Comm Key/ Menu ->Pc Connection(Comm Key) | 0 (most devices) | Sometimes 12345");
             $table->enum('status', ['active', 'inactive'])->default("active");
             $table->timestamp('last_seen_at')->nullable();
             $table->integer('created_by')->nullable();
@@ -27,6 +28,9 @@ return new class extends Migration
             $table->integer('updated_by')->nullable();
             $table->softDeletes();
             $table->integer('deleted_by')->nullable();
+            // Unique for device
+            $table->unique(['branch_id', 'ip_address']);
+            $table->unique(['branch_id', 'name']);
         });
     }
 
