@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Device;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Jmrashed\Zkteco\Lib\ZKTeco;
 use Exception;
@@ -124,24 +125,65 @@ class ZkTAttendanceController extends Controller
     /**
      * Upload (set) user to device
      */
-    public function uploadUser(Request $request, string $serial)
+//    public function uploadUser(Request $request, string $serial)
+//    {
+//        $request->validate([
+//            'uid' => 'required|numeric',
+//            'user_id' => 'required|string',
+//            'name' => 'required|string',
+//            'password' => 'nullable|string',
+//            'role' => 'nullable|numeric', // 0 = user, 14 = admin
+//        ]);
+//
+//        try {
+//            $zk = $this->zkBySerial($serial);
+//            $zk->connect();
+//
+//            $response = $zk->setUser(
+//                $request->uid,
+//                $request->user_id,
+//                $request->name,
+//                $request->password ?? '',
+//                $request->role ?? 0
+//            );
+//
+//            $zk->disconnect();
+//
+//            return response()->json([
+//                'status' => true,
+//                'message' => 'User uploaded successfully',
+//                'response' => $response,
+//            ]);
+//
+//        } catch (Exception $e) {
+//            return response()->json([
+//                'status' => false,
+//                'error' => $e->getMessage(),
+//            ], 500);
+//        }
+//    }
+
+    public function uploadUser()
     {
-        $request->validate([
-            'uid' => 'required|numeric',
-            'user_id' => 'required|string',
-            'name' => 'required|string',
-            'password' => 'nullable|string',
-            'role' => 'nullable|numeric', // 0 = user, 14 = admin
-        ]);
+//        $request->validate([
+//            'uid' => 'required|numeric',
+//            'user_id' => 'required|string',
+//            'name' => 'required|string',
+//            'password' => 'nullable|string',
+//            'role' => 'nullable|numeric', // 0 = user, 14 = admin
+//        ]);
+
+        $user_id = request()->get('user_id');
+        $serial_number = request()->get('serial_number');
 
         try {
-            $zk = $this->zkBySerial($serial);
+            $zk = $this->zkBySerial($serial_number);
             $zk->connect();
-
+            $user = User::findOrFail($user_id);
             $response = $zk->setUser(
-                $request->uid,
-                $request->user_id,
-                $request->name,
+                $user->employee_id,
+                $user->employee_id,
+                $user->name,
                 $request->password ?? '',
                 $request->role ?? 0
             );

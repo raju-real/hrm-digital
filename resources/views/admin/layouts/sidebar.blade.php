@@ -59,6 +59,11 @@
                             <i class="bx bx-chevron-right"></i> Devices
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.commands.activities') }}" class="{{ isSubMenuActive('devices') }}">
+                            <i class="bx bx-chevron-right"></i> Devices Activities
+                        </a>
+                    </li>
                 </ul>
             </li>
 

@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 @section('title', 'Attendance Summery')
 @push('css')
-    
+
 @endpush
 
 @section('content')
@@ -105,6 +105,7 @@
                                 <tr>
                                     <th class="text-center">Sl.no</th>
                                     <th>Name</th>
+                                    <th>Employee ID</th>
                                     <th>Date</th>
                                     <th>Attendance By</th>
                                     <th>Check In</th>
@@ -117,6 +118,7 @@
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td>{{ $attendance['employee_name'] ?? '' }}</td>
+                                        <td>{{ $attendance['employee_id'] ?? '' }}</td>
                                         <td>{{ \Carbon\Carbon::parse($attendance['attendance_date'])->format('d, M, y') }}
                                         </td>
                                         <td>{{ ucFirst($attendance['attendance_by']) ?? 'Unknown' }}</td>

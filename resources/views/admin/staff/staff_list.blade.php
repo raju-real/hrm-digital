@@ -97,7 +97,11 @@
                                         <label class="custom-label-margin" for="staff-{{ $loop->index + 1 }}" data-on-label="Yes"
                                                data-off-label="No"></label>
                                     </td>
+
                                     <td class="text-center">
+                                        <a data-bs-toggle="tooltip" data-bs-placement="top" title="Upload User"
+                                           href="{{ route('upload-user',['user_id' => $staff->id, 'serial_number' => 'BAY5252100647']) }}"
+                                           class="btn btn-sm btn-soft-success"><i class="fa fa-check-circle"></i></a>
                                         <a data-bs-toggle="tooltip" data-bs-placement="top" title="View/Edit"
                                            href="{{ route('admin.staffs.edit',$staff->id) }}"
                                            class="btn btn-sm btn-soft-success"><i class="fa fa-edit"></i></a>

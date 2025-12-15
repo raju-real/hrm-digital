@@ -82,6 +82,7 @@ class AttendanceController extends Controller
                         'employee_name'  => $emp->name,
                         'employee_id'  => $emp->employee_id,
                         'attendance_date' => $dateStr,
+                        'attendance_by'  => $emp->attendance_by,
                         'type'           => null,
                         'check_in'       => null,
                         'check_out'      => null,

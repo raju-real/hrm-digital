@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DeviceActivityController;
 use App\Http\Controllers\Employee\EmployeeActivityController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -57,9 +58,17 @@ Route::group(['as' => 'admin.', 'middleware' => 'auth'], function () {
             Route::put('update-staff-status/{id}', 'updateStaffStatus')->name('update-staff-status');
         });
         // Attendance manage
-        Route::controller(AttendanceController::class)->group(function() {
-            Route::get('attendance-logs','attendanceLogs')->name('attendance-logs');
-            Route::get('track-attendance-location','trackLocation')->name('track-attendance-location');
+        Route::controller(AttendanceController::class)->group(function () {
+            Route::get('attendance-logs', 'attendanceLogs')->name('attendance-logs');
+            Route::get('track-attendance-location', 'trackLocation')->name('track-attendance-location');
+        });
+        // Device Activity controller
+        Route::controller(DeviceActivityController::class)->group(function () {
+            Route::view('/commands/activities', 'admin.configuration.device_activities')->name('commands.activities');
+            Route::post('/commands/sync-users', 'syncUsers')->name('commands.sync.users'); // USERS
+            Route::post('/commands/sync-attendance', 'syncAttendance')->name('commands.sync.attendance'); // ATTENDANCE
+            Route::post('/commands/clear-attendance', 'clearAttendance')->name('commands.clear.attendance'); // CLEAR ATTENDANCE
+            Route::post('/commands/delete-user', 'deleteUserFromDevice')->name('commands.delete.user'); // DELETE USER FROM DEVICE
         });
         // Settings
         Route::controller(SettingController::class)->group(function () {
@@ -72,7 +81,7 @@ Route::group(['as' => 'admin.', 'middleware' => 'auth'], function () {
     // ===================================================================
     Route::controller(EmployeeActivityController::class)->middleware('employee')->group(function () {
         //Route::get('attendance-summery', 'attendanceSummery')->name('attendance-summery');
-        Route::view('check-in-out','attendance.check_in_out')->name('check-in-out');
+        Route::view('check-in-out', 'attendance.check_in_out')->name('check-in-out');
         Route::post('punch-manual', 'punchManual')->name('punch-manual');
         //Route::get('attendance-location/{id}','attendanceLocation')->name('attendance-location');
     });

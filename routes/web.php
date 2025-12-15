@@ -13,6 +13,7 @@ Route::prefix('package')->controller(ZkTAttendanceController::class)->group(func
     Route::get('test-connection/{serial}','testConnection')->name('test-connection');
     Route::get('get-users/{serial}','getUsers')->name('get-users');
     Route::get('get-attendances/{serial}','getAttendances')->name('get-attendances');
+    Route::get('upload-user','uploadUser')->name('upload-user');
 });
 
 

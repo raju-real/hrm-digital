@@ -3,6 +3,7 @@
 use App\Models\AttendanceLog;
 use App\Models\Department;
 use App\Models\Designation;
+use App\Models\Device;
 use Dom\Comment;
 use Carbon\Carbon;
 use App\Models\User;
@@ -378,6 +379,13 @@ if (!function_exists('allBranches')) {
     function allBranches()
     {
         return Branch::latest('name')->select('id', 'name')->get();
+    }
+}
+
+if (!function_exists('activeDevices')) {
+    function activeDevices()
+    {
+        return Device::latest('name')->select('id', 'name', 'serial_no')->get();
     }
 }
 
